@@ -5,13 +5,12 @@
             <class name="jsonplaceholder.tests.PostTests">
                 <methods>
                     <include name="testAllPosts"/>
-                    <include name="testGetPost99">
+                    <include name="testGetValidPost">
                         <parameter name="userId" value="10"/>
                         <parameter name="postId" value="99"/>
                     </include>
                     <include name="testGetNonExistentPost">
                         <parameter name="postId" value="150"/>
-                        <parameter name="emptyBody" value="{}"/>
                     </include>
                     <include name="testCreatePost">
                         <parameter name="userId" value="1"/>

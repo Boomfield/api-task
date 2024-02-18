@@ -4,7 +4,6 @@ import io.restassured.http.ContentType;
 import jsonplaceholder.helpers.PropertyUsers;
 import jsonplaceholder.models.User;
 import org.apache.http.HttpStatus;
-import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
@@ -19,28 +18,30 @@ public class UserTests extends BaseTest{
         List<User> users = given()
                 .get("/users")
                 .then()
-                .assertThat()
-                .statusCode(HttpStatus.SC_OK)
-                .contentType(ContentType.JSON)
+                    .assertThat()
+                    .statusCode(HttpStatus.SC_OK)
+                    .contentType(ContentType.JSON)
                 .extract()
-                .jsonPath()
-                .getList("", User.class);
+                    .jsonPath()
+                    .getList("", User.class);
 
         User user5 = users.get(4);
-        Assert.assertEquals(user5, PropertyUsers.getUserById(userId));
+        softAssert.assertEquals(user5, PropertyUsers.getUserById(userId));
     }
 
     @Test
     @Parameters({"userId"})
     public void testGetUser5(int userId) {
-        User user5 = given().get("/users/" + userId).then()
-                .assertThat()
-                .statusCode(HttpStatus.SC_OK)
-                .contentType(ContentType.JSON)
+        User user5 = given()
+                .get("/users/" + userId)
+                .then()
+                    .assertThat()
+                    .statusCode(HttpStatus.SC_OK)
+                    .contentType(ContentType.JSON)
                 .extract()
                 .response()
                 .as(User.class);
 
-        Assert.assertEquals(user5, PropertyUsers.getUserById(userId));
+        softAssert.assertEquals(user5, PropertyUsers.getUserById(userId));
     }
 }

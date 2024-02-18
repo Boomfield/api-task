@@ -5,7 +5,6 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import jsonplaceholder.models.UserData;
 import org.apache.http.HttpStatus;
-import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
@@ -18,9 +17,9 @@ public class PostTests extends BaseTest{
         Response response = given()
                 .get("/posts")
                 .then()
-                .assertThat()
-                .statusCode(HttpStatus.SC_OK)
-                .contentType(ContentType.JSON)
+                    .assertThat()
+                    .statusCode(HttpStatus.SC_OK)
+                    .contentType(ContentType.JSON)
                 .extract()
                 .response();
 
@@ -29,32 +28,32 @@ public class PostTests extends BaseTest{
 
     @Test
     @Parameters({"userId", "postId"})
-    public void testGetPost99(int userId, int postId) {
+    public void testGetValidPost(int userId, int postId) {
         Response response = given()
                 .get("/posts/" + postId)
                 .then()
-                .assertThat()
-                .statusCode(HttpStatus.SC_OK)
+                    .assertThat()
+                    .statusCode(HttpStatus.SC_OK)
                 .extract()
                 .response();
 
         UserData userData = response.as(UserData.class);
 
-        Assert.assertEquals(userData.getUserId(), userId);
-        Assert.assertEquals(userData.getId(), postId);
-        Assert.assertFalse(userData.getTitle().isEmpty());
-        Assert.assertFalse(userData.getBody().isEmpty());
+        softAssert.assertEquals(userData.getUserId(), userId);
+        softAssert.assertEquals(userData.getId(), postId);
+        softAssert.assertFalse(userData.getTitle().isEmpty());
+        softAssert.assertFalse(userData.getBody().isEmpty());
     }
 
     @Test
-    @Parameters({"postId", "emptyBody"})
-    public void testGetNonExistentPost(int postId, String emptyBody) {
+    @Parameters({"postId"})
+    public void testGetNonExistentPost(int postId) {
         given()
                 .get("/posts/" + postId)
                 .then()
-                .assertThat()
-                .statusCode(HttpStatus.SC_NOT_FOUND)
-                .body(equalTo(emptyBody));
+                    .assertThat()
+                    .statusCode(HttpStatus.SC_NOT_FOUND)
+                .body(equalTo("{}"));
     }
 
     @Test
@@ -65,22 +64,22 @@ public class PostTests extends BaseTest{
 
         UserData user = new UserData(userId, title, body);
         Response response = given()
-                .contentType(ContentType.JSON)
-                .body(user)
+                    .contentType(ContentType.JSON)
+                    .body(user)
                 .when()
-                .post("/posts")
+                    .post("/posts")
                 .then()
-                .assertThat()
-                .statusCode(HttpStatus.SC_CREATED)
-                .body(notNullValue())
+                    .assertThat()
+                    .statusCode(HttpStatus.SC_CREATED)
+                    .body(notNullValue())
                 .extract()
                 .response();
 
         UserData userData = response.as(UserData.class);
 
-        Assert.assertEquals(userData.getTitle(), title);
-        Assert.assertEquals(userData.getBody(), body);
-        Assert.assertEquals(userData.getUserId(), 1);
-        Assert.assertNotNull(userData.getId());
+        softAssert.assertEquals(userData.getTitle(), title);
+        softAssert.assertEquals(userData.getBody(), body);
+        softAssert.assertEquals(userData.getUserId(), userId);
+        softAssert.assertNotNull(userData.getId());
     }
 }
