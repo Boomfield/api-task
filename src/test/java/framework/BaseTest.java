@@ -1,6 +1,5 @@
-package jsonplaceholder.tests;
+package framework;
 
-import framework.Specifications;
 import jsonplaceholder.Asserts;
 import jsonplaceholder.helpers.PropertyConfig;
 import jsonplaceholder.helpers.PropertyUsers;

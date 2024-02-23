@@ -1,5 +1,6 @@
 package jsonplaceholder.tests;
 
+import framework.BaseTest;
 import framework.CommonFunctions;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -11,7 +12,7 @@ import org.testng.annotations.Test;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 
-public class PostTests extends BaseTest{
+public class PostTests extends BaseTest {
     @Test
     public void testAllPosts() {
         Response response = given()

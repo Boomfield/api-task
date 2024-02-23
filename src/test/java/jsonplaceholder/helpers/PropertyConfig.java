@@ -1,14 +1,14 @@
 package jsonplaceholder.helpers;
 
-import framework.FileLoader;
+import framework.PropertyReader;
 
 import java.util.Properties;
 
-public class PropertyConfig extends FileLoader {
+public class PropertyConfig extends PropertyReader {
     private static Properties properties;
 
     public static Properties loadProperties(String pathToPropertiesFile) {
-        properties = FileLoader.initProperty(pathToPropertiesFile);
+        properties = initProperty(pathToPropertiesFile);
         return properties;
     }
 

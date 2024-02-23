@@ -1,5 +1,6 @@
 package jsonplaceholder.tests;
 
+import framework.BaseTest;
 import io.restassured.http.ContentType;
 import jsonplaceholder.helpers.PropertyUsers;
 import jsonplaceholder.models.User;
@@ -11,7 +12,7 @@ import java.util.List;
 
 import static io.restassured.RestAssured.given;
 
-public class UserTests extends BaseTest{
+public class UserTests extends BaseTest {
     @Test
     @Parameters({"userId"})
     public void testGetUsers(int userId) {

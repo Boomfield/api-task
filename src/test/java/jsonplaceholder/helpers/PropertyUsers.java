@@ -1,17 +1,17 @@
 package jsonplaceholder.helpers;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import framework.JsonReader;
 import jsonplaceholder.models.User;
-import framework.FileLoader;
 
 import java.util.List;
 import java.util.Optional;
 
-public class PropertyUsers extends FileLoader{
+public class PropertyUsers extends JsonReader {
     private static List<User> users;
 
     public static void loadUsersJsonFile(String pathToJsonFile) {
-        users = readJsonFile(pathToJsonFile, new TypeReference<>() {});
+        users = initJson(pathToJsonFile, new TypeReference<>() {});
     }
 
     public static User getUserById(int userId) {
